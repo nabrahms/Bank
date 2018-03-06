@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 package com.mycompany.bank;
-
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  *
  * @author Nick-PC
  */
+@SpringBootApplication
 public class Bank {
     public static void main(String[] args){
-        
+        SpringApplication.run(Bank.class, args);
     }
 }
