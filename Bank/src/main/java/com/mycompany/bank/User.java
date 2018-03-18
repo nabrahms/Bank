@@ -5,6 +5,7 @@
  */
 package com.mycompany.bank;
 
+import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 
@@ -14,7 +15,7 @@ import org.hibernate.validator.constraints.*;
  */
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,17 @@ public class User {
     private String name;
 
     protected User() {
+    }
+    
+    public User(long id){
+        this.id = id;
+    }
+    
+    public User(String u, String p, String e, String n){
+        this.username = u;
+        this.password = p;
+        this.email = e;
+        this.name = n;
     }
 
     /**
