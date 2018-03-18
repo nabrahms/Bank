@@ -5,6 +5,8 @@
  */
 package com.mycompany.bank;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
     private BCryptPasswordEncoder encoder;
     @Override
     public User findUserByEmail(String email) {
@@ -29,6 +33,8 @@ public class UserServiceImpl implements UserService{
     public void saveUser(User u) {
         u.setPassword(encoder.encode(u.getPassword()));
         u.setActive(1);
+        Role role = roleRepository.findByRole("ADMIN");
+        u.setRoles(new HashSet<> (Arrays.asList(role)));
         userRepository.save(u);
     }
     

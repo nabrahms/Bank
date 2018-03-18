@@ -6,6 +6,7 @@
 package com.mycompany.bank;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 
@@ -15,13 +16,13 @@ import org.hibernate.validator.constraints.*;
  */
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-   
+
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
@@ -34,19 +35,21 @@ public class User implements Serializable{
     @Length(min = 2, message = "*Your name must have at least 2 characters")
     @NotEmpty(message = "*Please provide a name")
     private String name;
-    @Column(name="active")
+    @Column(name = "active")
     private int active;
-    
-    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roleSet;
+
     protected User() {
     }
-    
-    public User(long id){
+
+    public User(long id) {
         this.id = id;
     }
-    
-    public User(String p, String e, String n, int a){
-        
+
+    public User(String p, String e, String n, int a) {
+
         this.password = p;
         this.email = e;
         this.name = n;
@@ -67,7 +70,6 @@ public class User implements Serializable{
         this.id = id;
     }
 
- 
     /**
      * @return the password
      */
@@ -122,5 +124,13 @@ public class User implements Serializable{
      */
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roleSet;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roleSet = roles;
     }
 }

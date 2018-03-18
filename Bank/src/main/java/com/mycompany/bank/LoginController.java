@@ -61,6 +61,8 @@ public class LoginController {
 
     @RequestMapping(value = "/mainmenu", method = RequestMethod.GET)
     public String mainMenu() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
         return "Main Menu";
     }
 
