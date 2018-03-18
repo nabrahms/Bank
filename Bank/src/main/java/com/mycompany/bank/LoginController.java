@@ -51,13 +51,16 @@ public class LoginController {
         if (result.hasErrors()) {
             return "registration";
         } else {
+
             userService.saveUser(u);
-            m.addAttribute("user", u);
+            m.addAttribute("successMessage", "User has been created successfully!");
+            m.addAttribute("user", new User());
         }
         return "registration";
     }
+
     @RequestMapping(value = "/mainmenu", method = RequestMethod.GET)
-    public String mainMenu(){
+    public String mainMenu() {
         return "Main Menu";
     }
 

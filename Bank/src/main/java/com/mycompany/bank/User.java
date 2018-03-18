@@ -21,8 +21,7 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "username")
-    private String username;
+   
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
@@ -35,7 +34,10 @@ public class User implements Serializable{
     @Length(min = 2, message = "*Your name must have at least 2 characters")
     @NotEmpty(message = "*Please provide a name")
     private String name;
-
+    @Column(name="active")
+    private int active;
+    
+    
     protected User() {
     }
     
@@ -43,11 +45,12 @@ public class User implements Serializable{
         this.id = id;
     }
     
-    public User(String u, String p, String e, String n){
-        this.username = u;
+    public User(String p, String e, String n, int a){
+        
         this.password = p;
         this.email = e;
         this.name = n;
+        this.active = a;
     }
 
     /**
@@ -64,20 +67,7 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+ 
     /**
      * @return the password
      */
@@ -118,5 +108,19 @@ public class User implements Serializable{
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the active
+     */
+    public int getActive() {
+        return active;
+    }
+
+    /**
+     * @param active the active to set
+     */
+    public void setActive(int active) {
+        this.active = active;
     }
 }
