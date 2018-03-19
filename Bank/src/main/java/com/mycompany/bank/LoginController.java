@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -60,10 +61,15 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/mainmenu", method = RequestMethod.GET)
-    public String mainMenu() {
+    public ModelAndView mainMenu() {
+        ModelAndView newView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        return "Main Menu";
+        newView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
+        newView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
+        newView.setViewName("Main Menu");
+
+        return newView;
     }
 
 }
