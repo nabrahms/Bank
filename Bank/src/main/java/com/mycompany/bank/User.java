@@ -40,6 +40,10 @@ public class User implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet;
+    @Column(name="money")
+    private double money;
+    @Column(name="creditScore")
+    private int creditScore;
 
     protected User() {
     }
@@ -54,6 +58,8 @@ public class User implements Serializable {
         this.email = e;
         this.name = n;
         this.active = a;
+        this.money = 0;
+        this.creditScore = 650;
     }
 
     /**
@@ -127,10 +133,52 @@ public class User implements Serializable {
     }
 
     public Set<Role> getRoles() {
-        return roleSet;
+        return getRoleSet();
     }
 
     public void setRoles(Set<Role> roles) {
-        this.roleSet = roles;
+        this.setRoleSet(roles);
+    }
+
+    /**
+     * @return the roleSet
+     */
+    public Set<Role> getRoleSet() {
+        return roleSet;
+    }
+
+    /**
+     * @param roleSet the roleSet to set
+     */
+    public void setRoleSet(Set<Role> roleSet) {
+        this.roleSet = roleSet;
+    }
+
+    /**
+     * @return the money
+     */
+    public double getMoney() {
+        return money;
+    }
+
+    /**
+     * @param money the money to set
+     */
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    /**
+     * @return the creditScore
+     */
+    public int getCreditScore() {
+        return creditScore;
+    }
+
+    /**
+     * @param creditScore the creditScore to set
+     */
+    public void setCreditScore(int creditScore) {
+        this.creditScore = creditScore;
     }
 }
