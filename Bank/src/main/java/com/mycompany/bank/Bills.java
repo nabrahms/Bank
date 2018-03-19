@@ -4,14 +4,22 @@
  * and open the template in the editor.
  */
 package com.mycompany.bank;
-
+import java.io.Serializable;
+import javax.persistence.*;
 /**
  *
  * @author Nick-PC
  */
-public class Bills {
+@Entity
+@Table(name="bill")
+public class Bills implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="billID")
     private long billID;
+    @Column(name="billName")
     private String billName;
+    @Column(name="billCost")
     private double billCost;
     
     protected Bills(){}

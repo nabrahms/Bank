@@ -5,18 +5,30 @@
  */
 package com.mycompany.bank;
 
+import java.io.Serializable;
+import javax.persistence.*;
+
 /**
  *
  * @author Nick-PC
  */
-public class Job {
+@Entity
+@Table(name = "job")
+public class Job implements Serializable {
+
+    @Id
+    @GeneratedValue(GenerationType.IDENTITY)
+    @Column(name = "jobID")
     private long jobID;
+    @Column(name = "jobName")
     private String jobName;
+    @Column(name = "jobIncome")
     private double jobIncome;
-    
-    protected Job(){}
-    
-    public Job(String name, double income){
+
+    protected Job() {
+    }
+
+    public Job(String name, double income) {
         this.jobName = name;
         this.jobIncome = income;
     }
@@ -62,5 +74,5 @@ public class Job {
     public void setJobIncome(double jobIncome) {
         this.jobIncome = jobIncome;
     }
-    
+
 }
