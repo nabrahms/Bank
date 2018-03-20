@@ -44,6 +44,12 @@ public class User implements Serializable {
     private double money;
     @Column(name="creditScore")
     private int creditScore;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="jobIncome")
+    private Job job;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="billAmount")
+    private Bills bill;
 
     protected User() {
     }
@@ -60,6 +66,8 @@ public class User implements Serializable {
         this.active = a;
         this.money = 0;
         this.creditScore = 650;
+        this.job = null;
+        this.bill = null;
     }
 
     /**
