@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Job implements Serializable {
 
     @Id
-    @GeneratedValue(GenerationType.IDENTITY)
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name = "jobID")
     private long jobID;
     @Column(name = "jobName")
