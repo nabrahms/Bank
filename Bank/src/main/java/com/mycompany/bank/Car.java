@@ -5,16 +5,24 @@
  */
 package com.mycompany.bank;
 
+import java.io.Serializable;
+import javax.persistence.*;
 /**
  *
  * @author Nick-PC
  */
-public class Car {
+@Entity
+@Table(name = "car")
+public class Car implements Serializable{
+    @Id
+    private long id;
     private double lumpSum;
     private double carBill;
     private double carInsurance;
     private Bills addToBill;
     private String carName;
+    
+    protected Car(){}
     public Car(int choice){
         setCar(choice);
     }
