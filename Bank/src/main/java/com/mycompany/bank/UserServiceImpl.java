@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author Nick-PC
  */
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService{
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder encoder;
+
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -33,9 +34,12 @@ public class UserServiceImpl implements UserService{
     public void saveUser(User u) {
         u.setPassword(encoder.encode(u.getPassword()));
         u.setActive(1);
+        u.setCreditScore(650);
+        u.setMoney(0);
+
         Role role = roleRepository.findByRole("ADMIN");
-        u.setRoles(new HashSet< > (Arrays.asList(role)));
+        u.setRoles(new HashSet<>(Arrays.asList(role)));
         userRepository.save(u);
     }
-    
+
 }

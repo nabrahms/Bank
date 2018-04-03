@@ -44,11 +44,11 @@ public class User implements Serializable {
     private double money;
     @Column(name="creditScore")
     private int creditScore;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="jobIncome")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name="jobIncome")
     private Job job;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="billAmount")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name="billAmount")
     private Bills bill;
 
     protected User() {
