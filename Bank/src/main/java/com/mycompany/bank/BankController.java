@@ -6,6 +6,7 @@
 package com.mycompany.bank;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 /**
  *
  * @author Nick-PC
@@ -13,5 +14,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 @EnableAutoConfiguration
 public class BankController {
-    
+    @RequestMapping("/choosecar")
+    public String chooseCar(){
+        return "Choose Car";
+    }
 }

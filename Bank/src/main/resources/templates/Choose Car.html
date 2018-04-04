@@ -4,13 +4,30 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>Select a car</div>
+
+        <div align="center"><p>Welcome! Choose a car </p></div>
+        <br/><br/><br/>
+        <form th:action="@{/choosecar}" method ="POST">
+            <div align="left">
+                <input type="image" src="file:///C|/Users/Nick-PC/Documents/NetBeansProjects/bank.io/Bank/src/main/resources/templates/badcar.jpg" 
+                       alt="submit"> Bad car </input>
+            </div>
+            <div align="center">
+                <input type="image" src="file:///C|/Users/Nick-PC/Documents/NetBeansProjects/bank.io/Bank/src/main/resources/templates/decentcar.jpg"
+                       alt="submit"> Decent car </input>
+            </div>
+            <div align="right">
+                <input type="image" src="file:///C|/Users/Nick-PC/Documents/NetBeansProjects/bank.io/Bank/src/main/resources/templates/goodcar.jpg"
+                       alt="submit"> Good car </input>
+            </div>
+        </form>
     </body>
 </html>
