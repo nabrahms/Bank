@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User u) {
+        System.out.println(u.getEmail() + " " + u.getPassword());
         u.setPassword(encoder.encode(u.getPassword()));
         u.setActive(1);
         u.setCreditScore(650);
