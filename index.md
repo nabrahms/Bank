@@ -21,7 +21,7 @@ checking a set credit score based on spending habits and watching it increment/d
 c.	The credit scores will be made with a base of 650 and will go up and down depending on the amount that you receive vs. the amount you spend
 
 3.	I should have the home page with empty links up 2 weeks after spring break. 
-For the next checkpoint (Checkpoint 1), I will have a registration/login use case made. 
+For the next checkpoint (Checkpoint 1), I will have a registration/login use case made. However, due to switching from MySQL to SQLite, the database cannot authenticate anymore. Therefore, the login pages work and a user can register to a SQLite database. However, again, the authentication has an issue so I have to fix it before Checkpoint 2.
 For Checkpoint 2, I will have the web application have users get a home/car, as well as a job, but not all the financial aspects will be set yet. 
 For Checkpoint 3, I will have the credit score ready and will tweak the application so that it looks nicer, as well as hfix the other financial problems (if there are any).
 For the final project, I will make sure that everything works seamlessly as well as make the application look aesthetically pleasing. 
