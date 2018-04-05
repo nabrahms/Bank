@@ -6,11 +6,14 @@
 package com.mycompany.bank;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Nick-PC
  */
+
+@Repository("userRepository")
 public interface UserRepository extends CrudRepository<User, Long>{
     User findByEmail(String email);
 }
