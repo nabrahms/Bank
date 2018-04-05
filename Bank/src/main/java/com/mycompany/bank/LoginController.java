@@ -65,6 +65,7 @@ public class LoginController {
         ModelAndView newView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        System.out.println(user.getEmail());
         if (user.getMoney() == 0) {
             newView.addObject("userName", "Welcome " +  user.getName());
             newView.setViewName("Choose Car");
