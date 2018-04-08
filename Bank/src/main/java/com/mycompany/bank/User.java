@@ -189,4 +189,11 @@ public class User implements Serializable {
     public void setCreditScore(int creditScore) {
         this.creditScore = creditScore;
     }
+    
+    public Bills getBill(){
+        return this.bill;
+    }
+    public Job getJob(){
+        return this.job;
+    }
 }

@@ -6,8 +6,11 @@
 package com.mycompany.bank;
 
 import java.sql.*;
+import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
 
 /**
  *
@@ -16,7 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Bank {
 
-    public static void connect() {
+    public static Connection connect() {
         Connection conn = null;
         try {
             // db parameters
@@ -37,10 +40,13 @@ public class Bank {
                 System.out.println(ex.getMessage());
             }
         }
+        return conn;
     }
 
     public static void main(String[] args) {
         connect();
         SpringApplication.run(Bank.class, args);
     }
+
+   
 }

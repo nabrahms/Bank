@@ -5,6 +5,9 @@
  */
 package com.mycompany.bank;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,9 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepository.findByRole("ADMIN");
         u.setRoles(new HashSet<>(Arrays.asList(role)));
+
         userRepository.save(u);
+
     }
 
 }
