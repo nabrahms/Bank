@@ -31,7 +31,8 @@ public class Bank {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
+        }
+        /*finally {
             try {
                 if (conn != null) {
                     conn.close();
@@ -39,7 +40,7 @@ public class Bank {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        }*/
         return conn;
     }
 
@@ -48,5 +49,4 @@ public class Bank {
         SpringApplication.run(Bank.class, args);
     }
 
-   
 }
