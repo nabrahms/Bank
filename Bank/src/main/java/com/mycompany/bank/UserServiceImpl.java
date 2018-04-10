@@ -27,17 +27,17 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder encoder;
-    private Bank bank;
+    //private Bank bank;
 
     @Override
     public User findUserByEmail(String email) {
-        
+
         return userRepository.findByEmail(email);
     }
 
     @Override
     public void saveUser(User u) {
-        
+
         u.setPassword(encoder.encode(u.getPassword()));
         u.setActive(1);
         u.setCreditScore(650);
@@ -45,26 +45,9 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepository.findByRole("ADMIN");
         u.setRoles(new HashSet<>(Arrays.asList(role)));
-        try(Connection conn = bank.connect();
-                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO"
-                        + " user (active, bill, credit_score, email, job, money, name, password) values (?, ?, ?, ?, ?, ?, ?, ?)")){
-            
-            pstmt.setInt(1, 1);
-            pstmt.setDouble(2, 0);
-            pstmt.setInt(3, 650);
-            pstmt.setString(4, u.getEmail());
-            pstmt.setDouble(5, 0);
-            pstmt.setDouble(6, 0);
-            pstmt.setString(7, u.getName());
-            pstmt.setString(8, u.getPassword());
-            pstmt.executeUpdate();
-            conn.commit();
-            userRepository.save(u);
-            
-        }catch(SQLException e){
-             System.out.println(e.getMessage());
-        }
-        
+
+        userRepository.save(u);
+
     }
 
 }

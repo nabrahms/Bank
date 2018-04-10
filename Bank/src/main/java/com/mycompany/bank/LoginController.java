@@ -22,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -69,13 +70,13 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/mainmenu", method = RequestMethod.GET)
-    public String mainMenu() {
-
+    public ModelAndView mainMenu() {
+        ModelAndView newView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(auth.isAuthenticated());
         User user = userService.findUserByEmail(auth.getName());
-        String query = "Select * from user where email=? and password=?";
-        PreparedStatement pstmt;
+        // String query = "Select * from user where email=? and password=?";
+        /* PreparedStatement pstmt;
         try {
             pstmt = bank.connect().prepareStatement(query);
             pstmt.setString(1, user.getEmail());
@@ -85,13 +86,16 @@ public class LoginController {
             return "Main Menu";
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
 
-        if (!user.equals(null) && user.getMoney() == 0 && user.getJob().equals(null)) {
-            return "Choose Car";
+        if (user.getMoney() == 0 //&& user.getJob().equals(null)
+                ) {
+            newView.setViewName("Choose Car");
         } else {
-            return "Login";
+            newView.setViewName("Login");
         }
+        
+        return newView;
 
     }
 
