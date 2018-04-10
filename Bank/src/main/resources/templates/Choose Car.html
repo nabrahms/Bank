@@ -7,7 +7,7 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Choose your car</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -17,8 +17,8 @@ and open the template in the editor.
         <br/><br/><br/>
         <form th:action="@{/choosecar}" method ="POST">
             <div align="left">
-                <input type="image" src="file:///C|/Users/Nick-PC/Documents/NetBeansProjects/bank.io/Bank/src/main/resources/static/badcar.jpg" 
-                       alt="submit"> Bad car </input>
+                <input type="image" src="@{static/badcar.jpg}" 
+                       alt="submit" onclick="@{choosehome}"> Bad car </input>
             </div>
             <div align="center">
                 <input type="image" src="file:///C|/Users/Nick-PC/Documents/NetBeansProjects/bank.io/Bank/src/main/resources/static/decentcar.jpg"

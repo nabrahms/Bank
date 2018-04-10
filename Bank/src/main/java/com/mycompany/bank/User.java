@@ -47,10 +47,10 @@ public class User implements Serializable {
     private int creditScore;
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name="jobIncome")
-    //@JoinTable(name= "bill", joinColumns = @JoinColumn(name = "bill_amount"))
+    //@JoinTable(name= "job", joinColumns = @JoinColumn(name = "job_income"))
    // private Set<Job> job = new HashSet<>();
     //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="billAmount")
+    //@JoinTable(name="bill", joinColumns = @JoinColumn(name="billAmount"))
     //private Set<Bills> bill = new HashSet<>();
 
     protected User() {
