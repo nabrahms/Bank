@@ -60,4 +60,38 @@ public class BankController {
     public String chooseHome() {
         return "Choose Home";
     }
+      @RequestMapping(value = "/choosehome", method = RequestMethod.POST)
+    public String selectHome(Model model, HttpServletRequest request) {
+       // System.out.println("we have gotten this far");
+       // ModelAndView newView = new ModelAndView();
+        String homeName = request.getParameter("carChoice");
+        Home h = new Home(homeName);
+        User u = l.returnUser();
+       // u.setBillAmount(u.getBillAmount() + c.getTotalBill());
+        //userService.saveCar(u, h.getChoice());
+       // newView = new ModelAndView(new RedirectView("/choosehome", true));
+        return "redirect:/Choose Job.html";
+    }
+    
+    @RequestMapping(value = "/choosejob", method = RequestMethod.GET)
+    public String chooseJob() {
+        return "Choose Job";
+    }
+      @RequestMapping(value = "/choosejob", method = RequestMethod.POST)
+    public String selectJob(Model model, HttpServletRequest request) {
+        System.out.println("we have gotten this far");
+       // ModelAndView newView = new ModelAndView();
+        String jobName = request.getParameter("jobChoice");
+        Job j = new Job(jobName);
+        User u = l.returnUser();
+       // u.setBillAmount(u.getBillAmount() + c.getTotalBill());
+        //userService.saveCar(u, j.getChoice());
+       // newView = new ModelAndView(new RedirectView("/choosehome", true));
+        return "redirect:/MainMenu.html";
+    }
+    
+    @RequestMapping(value="/mainMenu", method=RequestMethod.GET)
+    public String mainMenu(){
+        return "Main Menu";
+    }
 }

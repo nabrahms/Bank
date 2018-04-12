@@ -76,6 +76,7 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         user = userService.findUserByEmail(auth.getName());
+        user.setBillAmount(0);
 
         if (user.getMoney() == 0 //&& user.getJob().equals(null)
                 ) {

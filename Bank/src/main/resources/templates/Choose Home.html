@@ -7,7 +7,7 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Choose your car</title>
+        <title>Choose your home</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -17,7 +17,8 @@ and open the template in the editor.
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <div class="form-group blu-margin" align="center">
             <form action="#" th:action="@{/choosehome}"  method="post" th:required="true">
-                <select class="form-control" name="carChoice" id="carChoice">
+                <select class="form-control" name="homeChoice" id="homeChoice">
+                    <option> Choose a house</option>
                     <option value="Low tier apartment" > Crappy House</option>
                     <option value="Mid Tier House" > Decent House</option>
                     <option value="High Tier Mansion" > Great House</option>
@@ -25,7 +26,7 @@ and open the template in the editor.
             </form>
         </div>
         <div align="center">
-            <input type="button" value="Submit" name="submit" />
+            <input type="button" value="Submit" name="submit" ng-href="/choosehome" onclick="location.href = 'choosejob'"  />
         </div>
 
 

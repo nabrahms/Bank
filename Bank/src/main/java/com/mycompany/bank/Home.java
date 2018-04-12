@@ -18,29 +18,62 @@ public class Home {
     private double utiltiesBill;
     private String homeName;
     private Bills addToBill;
+    private double totalBill;
 
     public Home(int choice) {
         setValues(choice);
+    }
+    
+     public Home(String homeName){
+        switch (homeName) {
+            case "Low tier apartment":
+                setValues(1);
+                break;
+            case "Mid tier house":
+                setValues(2);
+                break;
+            case "High tier mansion":
+                setValues(3);
+                break;
+            default:
+                break;
+        }
     }
 
     private void setValues(int choice) {
         switch (choice) {
         //set low tier house
             case 1:
-                setHomeName("Low tier apartment");
+                setDownPayment(3000);
+                setMortgage(500);
+                setLightBill(100);
+                setGasBill(100);
+                setUtiltiesBill(0);
+                setValuesName("Low tier apartment");
                 break;
         //set mid tier house
             case 2:
-                setHomeName("Mid tier house");
+                setDownPayment(10000);
+                setMortgage(1000);
+                setLightBill(200);
+                setGasBill(200);
+                setUtiltiesBill(200);
+                setValuesName("Mid tier house");
                 break;
         //set high tier house
             case 3:
-                setHomeName("High tier mansion");
+                setDownPayment(30000);
+                setMortgage(2000);
+                setLightBill(300);
+                setGasBill(300);
+                setUtiltiesBill(300);
+                setValuesName("High tier mansion");
                 break;
             default:
                 break;
         }
-        addToBill = new Bills(homeName, mortgage+lightBill+utiltiesBill+gasBill);
+        setTotalBill(mortgage+lightBill+utiltiesBill+gasBill);
+        addToBill = new Bills(homeName, getTotalBill());
     }
 
     /**
@@ -123,7 +156,7 @@ public class Home {
     /**
      * @param homeName the homeName to set
      */
-    public void setHomeName(String homeName) {
+    public void setValuesName(String homeName) {
         this.homeName = homeName;
     }
 
@@ -139,5 +172,19 @@ public class Home {
      */
     public void setAddToBill(Bills addToBill) {
         this.addToBill = addToBill;
+    }
+
+    /**
+     * @return the totalBill
+     */
+    public double getTotalBill() {
+        return totalBill;
+    }
+
+    /**
+     * @param totalBill the totalBill to set
+     */
+    public void setTotalBill(double totalBill) {
+        this.totalBill = totalBill;
     }
 }

@@ -33,6 +33,10 @@ public class Job implements Serializable {
         this.jobIncome = income;
     }
 
+    public Job(String jobName) {
+        
+    }
+
     /**
      * @return the jobID
      */
@@ -73,6 +77,10 @@ public class Job implements Serializable {
      */
     public void setJobIncome(double jobIncome) {
         this.jobIncome = jobIncome;
+    }
+
+    int getChoice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

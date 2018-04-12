@@ -71,8 +71,8 @@ public class User implements Serializable {
         this.money = 0;
         this.creditScore = 650;
        // this.job = null;
-        this.bill = null;
-        this.billAmount= bill.getBillCost();
+        //this.bill = null;
+        this.billAmount= 0;
     }
 
     /**

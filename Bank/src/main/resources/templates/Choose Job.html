@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Choose your job</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+
+        <div align="center"><h1>Finally, select a job </h1></div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="form-group blu-margin" align="center">
+            <form action="#" th:action="@{/choosejob}"  method="post" th:required="true">
+                <select class="form-control" name="jobChoice" id="jobChoice">
+                    <option> Choose a job</option>
+                    <option value="Great job" > Astronaut</option>
+                    <option value="Good job" > Programmer</option>
+                    <option value="Decent Job" > Electrician</option>
+                    <option value="Terrible Job">Philosopher</option>
+                </select>
+            </form>
+        </div>
+        <div align="center">
+            <input type="button" value="Submit" name="submit" ng-href="/mainmenu" onclick="location.href = 'mainMenu'"  />
+        </div>
+
+
+    </body>
+</html>
