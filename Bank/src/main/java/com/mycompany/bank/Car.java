@@ -6,46 +6,71 @@
 package com.mycompany.bank;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
 /**
  *
  * @author Nick-PC
  */
-@Entity
-@Table(name = "car")
-public class Car implements Serializable{
-    @Id
-    private long id;
+public class Car {
+
     private double lumpSum;
     private double carBill;
     private double carInsurance;
+    private double totalBill;
     private Bills addToBill;
     private String carName;
-    
-    protected Car(){}
-    public Car(int choice){
+    private int choice;
+
+    protected Car() {
+    }
+
+    public Car(int choice) {
+        this.choice = choice;
         setCar(choice);
     }
     
-    private void setCar(int choice){
-        
-        switch(choice){
-            case 1:
-                //setLowCarRate
-                setCarName("Low tier car");
+    public Car(String carName){
+        switch (carName) {
+            case "Low tier car":
+                setCar(1);
                 break;
-            case 2:
-                //setMidCarRate
-                setCarName("Mid tier car");
+            case "Mid tier car":
+                setCar(2);
                 break;
-            case 3:
-                //setHighCarRate
-                setCarName("High tier car");
+            case "High tier car":
+                setCar(3);
                 break;
             default:
                 break;
         }
-        setAddToBill(new Bills(getCarName(), carBill+carInsurance));
+    }
+
+    private void setCar(int choice) {
+
+        switch (choice) {
+            case 1:
+                setCarInsurance(30);
+                setLumpSum(2000);
+                setCarName("Low tier car");
+                setCarBill(lumpSum + 100);
+                break;
+            case 2:
+                setCarInsurance(80);
+                setLumpSum(5000);
+                setCarName("Mid tier car");
+                setCarBill(lumpSum + 500);
+                break;
+            case 3:
+                setCarInsurance(200);
+                setLumpSum(10000);
+                setCarName("High tier car");
+                setCarBill(lumpSum + 1000);
+                break;
+            default:
+                break;
+        }
+        totalBill = carBill + carInsurance;
+        setAddToBill(new Bills(getCarName(), totalBill));
     }
 
     /**
@@ -118,4 +143,26 @@ public class Car implements Serializable{
         this.carName = carName;
     }
     
+    public double getTotalBill(){
+        return this.totalBill;
+    }
+    
+    public void setTotalBill(double b){
+        this.totalBill = b;
+    }
+
+    /**
+     * @return the choice
+     */
+    public int getChoice() {
+        return choice;
+    }
+
+    /**
+     * @param choice the choice to set
+     */
+    public void setChoice(int choice) {
+        this.choice = choice;
+    }
+
 }

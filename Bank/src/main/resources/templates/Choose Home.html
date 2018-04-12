@@ -4,13 +4,30 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Choose your car</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>TODO write content</div>
+
+        <div align="center"><h1>Now select a home </h1></div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="form-group blu-margin" align="center">
+            <form action="#" th:action="@{/choosehome}"  method="post" th:required="true">
+                <select class="form-control" name="carChoice" id="carChoice">
+                    <option value="Low tier apartment" > Crappy House</option>
+                    <option value="Mid Tier House" > Decent House</option>
+                    <option value="High Tier Mansion" > Great House</option>
+                </select>
+            </form>
+        </div>
+        <div align="center">
+            <input type="button" value="Submit" name="submit" />
+        </div>
+
+
     </body>
 </html>

@@ -12,4 +12,5 @@ package com.mycompany.bank;
 public interface UserService{
     public User findUserByEmail(String email);
     public void saveUser(User u);
+    public void saveCar(User u, int choice);
 }

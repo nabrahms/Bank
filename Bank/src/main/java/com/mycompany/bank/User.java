@@ -7,7 +7,6 @@ package com.mycompany.bank;
 
 import java.io.Serializable;
 import java.util.Set;
-import java.util.HashSet;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 
@@ -45,6 +44,9 @@ public class User implements Serializable {
     private double money;
     @Column(name="creditScore")
     private int creditScore;
+    private Bills bill;
+    @Column(name="billAmount")
+    private double billAmount;
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name="jobIncome")
     //@JoinTable(name= "job", joinColumns = @JoinColumn(name = "job_income"))
@@ -69,7 +71,8 @@ public class User implements Serializable {
         this.money = 0;
         this.creditScore = 650;
        // this.job = null;
-        //this.bill = null;
+        this.bill = null;
+        this.billAmount= bill.getBillCost();
     }
 
     /**
@@ -192,9 +195,19 @@ public class User implements Serializable {
         this.creditScore = creditScore;
     }
     
-   /* public Bills getBill(){
+    public Bills getBill(){
         return this.bill;
     }
+    
+    public double getBillAmount(){
+        return this.billAmount;
+    }
+    
+    public void setBillAmount(double d){
+        this.billAmount = d;
+    }
+    
+    /*
     public Job getJob(){
         return this.job;
     }*/

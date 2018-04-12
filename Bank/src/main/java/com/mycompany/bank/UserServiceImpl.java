@@ -5,9 +5,7 @@
  */
 package com.mycompany.bank;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findByEmail(email);
     }
+   
 
     @Override
     public void saveUser(User u) {
@@ -48,6 +47,12 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(u);
 
+    }
+    
+    @Override
+    public void saveCar(User u, int choice){
+        Car c = new Car(choice);
+        u.setBillAmount(u.getBillAmount() + c.getCarBill());
     }
 
 }
