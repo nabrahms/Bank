@@ -5,7 +5,7 @@
  */
 package com.mycompany.bank;
 
-import java.io.Serializable;
+
 
 /**
  *

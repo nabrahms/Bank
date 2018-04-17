@@ -4,32 +4,38 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Choose your car</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .error
+            {
+                color: #ff0000;
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body>
 
         <div align="center"><p>Welcome! Choose a car </p></div>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <div class="form-group blu-margin" align="center">
-            <form action="#" th:action="@{/choosecar}"  method="post" th:required="true">
-                <select class="form-control" name="carChoice" id="carChoice">
-                    <option> Choose a car</option>
-                    <option value="High Tier Car" > Good Car</option>
-                    <option value="Mid Tier Car" > Decent Car</option>
-                    <option value="Low Tier Car" > Bad Car</option>
+            <form th:action="@{/choosecar}" th:object="${carOption}" th:method="get">
+                <select th:field="*{carName}">
+                    <option th:each="carName : ${carList}" 
+                            th:value="${carName.getTotalBill()}" 
+                            th:text="${carName.getCarName()}">Choose an Option</option>
                 </select>
+                <div align="center" th:action="@{/choosehome}" ng-href="/choosehome">
+                    <input type="button" value="Submit" name="submit" ng-href="/choosehome" onclick="location.href = 'choosehome'"  />
+                </div>
             </form>
+
         </div>
-        <form:form ng-href="Choose Home.html"> 
-            <div align="center" th:action="@{/choosehome}" ng-href="/choosehome">
-                <input type="button" value="Submit" name="submit" ng-href="/choosehome" onclick="location.href = 'choosehome'"  />
-            </div>
-        </form:form>
 
     </body>
 </html>

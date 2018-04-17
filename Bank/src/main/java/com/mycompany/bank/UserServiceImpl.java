@@ -48,11 +48,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(u);
 
     }
-    
     @Override
-    public void saveCar(User u, int choice){
-        Car c = new Car(choice);
-        u.setBillAmount(u.getBillAmount() + c.getCarBill());
+    public void updateUser(User u){
+        userRepository.save(u);
     }
+  
 
 }

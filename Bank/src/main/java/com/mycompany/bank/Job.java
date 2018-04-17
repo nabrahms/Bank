@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Job implements Serializable {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "jobID")
     private long jobID;
     @Column(name = "jobName")
@@ -34,7 +34,41 @@ public class Job implements Serializable {
     }
 
     public Job(String jobName) {
-        
+
+    }
+
+    public Job(int choice) {
+        setValues(choice);
+    }
+
+    private void setValues(int choice) {
+        switch (choice) {
+
+            case 1:
+                setJobName("Philosopher");
+                setJobIncome(10000);
+
+                break;
+
+            case 2:
+                setJobName("Electrician");
+                setJobIncome(50000);
+
+                break;
+
+            case 3:
+                setJobName("Programmer");
+                setJobIncome(150000);
+
+                break;
+            case 4:
+                setJobName("Astronaut");
+                setJobIncome(300000);
+                break;
+            default:
+                break;
+        }
+
     }
 
     /**
