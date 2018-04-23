@@ -5,25 +5,18 @@
  */
 package com.mycompany.bank;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
 /**
  *
  * @author Nick-PC
  */
-@Entity
-@Table(name = "job")
-public class Job implements Serializable {
+public class Job {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "jobID")
     private long jobID;
-    @Column(name = "jobName")
+
     private String jobName;
-    @Column(name = "jobIncome")
-    private double jobIncome;
+
+    private Double jobIncome;
+    private int choice;
 
     protected Job() {
     }
@@ -38,6 +31,8 @@ public class Job implements Serializable {
     }
 
     public Job(int choice) {
+        this.choice = choice;
+        setJobIncome(0.0);
         setValues(choice);
     }
 
@@ -46,24 +41,24 @@ public class Job implements Serializable {
 
             case 1:
                 setJobName("Philosopher");
-                setJobIncome(10000);
+                setJobIncome(10000.0);
 
                 break;
 
             case 2:
                 setJobName("Electrician");
-                setJobIncome(50000);
+                setJobIncome(50000.0);
 
                 break;
 
             case 3:
                 setJobName("Programmer");
-                setJobIncome(150000);
+                setJobIncome(150000.0);
 
                 break;
             case 4:
                 setJobName("Astronaut");
-                setJobIncome(300000);
+                setJobIncome(300000.0);
                 break;
             default:
                 break;
@@ -102,19 +97,29 @@ public class Job implements Serializable {
     /**
      * @return the jobIncome
      */
-    public double getJobIncome() {
+    public Double getJobIncome() {
         return jobIncome;
     }
 
     /**
      * @param jobIncome the jobIncome to set
      */
-    public void setJobIncome(double jobIncome) {
+    public void setJobIncome(Double jobIncome) {
         this.jobIncome = jobIncome;
     }
 
-    int getChoice() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @return the choice
+     */
+    public int getChoice() {
+        return choice;
+    }
+
+    /**
+     * @param choice the choice to set
+     */
+    public void setChoice(int choice) {
+        this.choice = choice;
     }
 
 }

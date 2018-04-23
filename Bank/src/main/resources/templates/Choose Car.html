@@ -22,20 +22,28 @@ and open the template in the editor.
     <body>
 
         <div align="center"><p>Welcome! Choose a car </p></div>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <div class="form-group blu-margin" align="center">
-            <form th:action="@{/choosecar}" th:object="${carOption}" th:method="get">
-                <select th:field="*{carName}">
-                    <option th:each="carName : ${carList}" 
-                            th:value="${carName.getTotalBill()}" 
-                            th:text="${carName.getCarName()}">Choose an Option</option>
-                </select>
-                <div align="center" th:action="@{/choosehome}" ng-href="/choosehome">
-                    <input type="button" value="Submit" name="submit" ng-href="/choosehome" onclick="location.href = 'choosehome'"  />
-                </div>
-            </form>
+        <br/><br/><br/><br/>
+        <img th:src ="@{/resources/static/goodcar.jpg}" alt="car"/>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="form-group blu-margin" align="center">
+                <form style ="display:inline-block" action="#" th:action="@{/choosecar}" th:object="${carOption}" th:method="POST" th:required="true">
 
-        </div>
+                    <select name="total">
+                        <option th:each="carName : ${carList}" 
+                                th:value="${carName.getChoice()}" 
+                                th:text="${carName.getCarName()}">Choose an Option</option>
+                    </select>
+
+
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary btn-block green darken-1 col s8 offset-s2" name="submit_car_choice"> Submit </button>
+                        <input type="hidden" th:value="${carOption.getTotalBill()}" />
+                    </div>
+
+                </form>
+
+
+            </div>
 
     </body>
 </html>

@@ -16,7 +16,7 @@ public class Car {
     private double lumpSum;
     private double carBill;
     private double carInsurance;
-    private double totalBill;
+    private Double totalBill;
     private Bills addToBill;
     private String carName;
     private int choice;
@@ -26,6 +26,7 @@ public class Car {
 
     public Car(int choice) {
         this.choice = choice;
+        totalBill = 0.0;
         setCar(choice);
     }
     
@@ -143,11 +144,11 @@ public class Car {
         this.carName = carName;
     }
     
-    public double getTotalBill(){
+    public Double getTotalBill(){
         return this.totalBill;
     }
     
-    public void setTotalBill(double b){
+    public void setTotalBill(Double b){
         this.totalBill = b;
     }
 

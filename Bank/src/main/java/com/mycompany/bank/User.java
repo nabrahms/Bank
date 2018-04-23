@@ -44,9 +44,8 @@ public class User implements Serializable {
     private double money;
     @Column(name="creditScore")
     private int creditScore;
-    private Bills bill;
-    @Column(name="billAmount")
-    private double billAmount;
+    @Column(name="bill_amount")
+    private Double billAmount;
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name="jobIncome")
     //@JoinTable(name= "job", joinColumns = @JoinColumn(name = "job_income"))
@@ -72,7 +71,7 @@ public class User implements Serializable {
         this.creditScore = 650;
        // this.job = null;
         //this.bill = null;
-        this.billAmount= 0;
+        this.billAmount= 0.0;
     }
 
     /**
@@ -195,15 +194,11 @@ public class User implements Serializable {
         this.creditScore = creditScore;
     }
     
-    public Bills getBill(){
-        return this.bill;
-    }
-    
-    public double getBillAmount(){
+    public Double getBillAmount(){
         return this.billAmount;
     }
     
-    public void setBillAmount(double d){
+    public void setBillAmount(Double d){
         this.billAmount = d;
     }
     

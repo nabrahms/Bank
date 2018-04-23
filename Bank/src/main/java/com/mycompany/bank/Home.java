@@ -18,9 +18,14 @@ public class Home {
     private double utiltiesBill;
     private String homeName;
     private Bills addToBill;
-    private double totalBill;
+    private Double totalBill;
+    private int choice;
+    
+    protected Home(){}
 
     public Home(int choice) {
+        this.choice = choice;
+        totalBill = 0.0;
         setValues(choice);
     }
     
@@ -72,7 +77,7 @@ public class Home {
             default:
                 break;
         }
-        setTotalBill(mortgage+lightBill+utiltiesBill+gasBill);
+        totalBill =mortgage+lightBill+utiltiesBill+gasBill;
         addToBill = new Bills(homeName, getTotalBill());
     }
 
@@ -177,14 +182,28 @@ public class Home {
     /**
      * @return the totalBill
      */
-    public double getTotalBill() {
+    public Double getTotalBill() {
         return totalBill;
     }
 
     /**
      * @param totalBill the totalBill to set
      */
-    public void setTotalBill(double totalBill) {
+    public void setTotalBill(Double totalBill) {
         this.totalBill = totalBill;
+    }
+
+    /**
+     * @return the choice
+     */
+    public int getChoice() {
+        return choice;
+    }
+
+    /**
+     * @param choice the choice to set
+     */
+    public void setChoice(int choice) {
+        this.choice = choice;
     }
 }

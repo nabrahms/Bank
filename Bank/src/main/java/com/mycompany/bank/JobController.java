@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -37,25 +39,32 @@ public class JobController {
     @Autowired
     private UserService userService;
 
-    private final Authentication auth;
+    private Authentication auth;
 
     private User currentUser;
 
-    private final Validator validator;
-    
-    public JobController(){
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        Object myUser = (auth != null) ? auth.getPrincipal() : null;
+    private Validator validator;
 
-        if (myUser instanceof User) {
-            currentUser = (User) myUser;
-        }
+    public void validate() {
         ValidatorFactory vF = Validation.buildDefaultValidatorFactory();
-        validator =  vF.getValidator();
+        validator = vF.getValidator();
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        System.out.println(userName);
+        currentUser = userService.findUserByEmail(userName);
+
+        //currentUser = userService.findUserByEmail(emailList.get(0));
     }
 
     @RequestMapping(value = "/choosejob", method = RequestMethod.GET)
-    public String chooseJob() {
+    public String chooseJob(Model m, @ModelAttribute("jobChoice") Job job) {
+        validate();
+        List<Job> jobList = new ArrayList<>();
+        jobList.add(new Job(1));
+        jobList.add(new Job(2));
+        jobList.add(new Job(3));
+        jobList.add(new Job(4));
+        m.addAttribute("jobList", jobList);
         return "Choose Job";
     }
 
@@ -64,28 +73,26 @@ public class JobController {
         binder.registerCustomEditor(Car.class, new CarEditor());
     }
 
-    @ModelAttribute("allCars")
-    public List<Car> populateCar() {
-        ArrayList<Car> cars = new ArrayList<>();
-        cars.add(new Car(-1));
-        cars.add(new Car(1));
-        cars.add(new Car(2));
-        cars.add(new Car(3));
-        return cars;
-    }
-
     @RequestMapping(value = "/choosejob", method = RequestMethod.POST)
-    public String selectJob(Model model, HttpServletRequest request) {
+    public String selectJob(@ModelAttribute("jobChoice") Job job, BindingResult result, HttpServletRequest request) {
+       // ModelAndView mav = new ModelAndView();
         System.out.println("we have gotten this far");
-        // ModelAndView newView = new ModelAndView();
-        String jobName = request.getParameter("jobChoice");
-        Job j = new Job(jobName);
-        currentUser.setMoney(j.getJobIncome());
-        userService.updateUser(currentUser);
-        // u.setBillAmount(u.getBillAmount() + c.getTotalBill());
-        //userService.saveCar(u, j.getChoice());
-        // newView = new ModelAndView(new RedirectView("/choosehome", true));
-        return "redirect:/MainMenu.html";
+        Job userJob = new Job(Integer.parseInt(request.getParameter("total")));
+        if (result.hasErrors()) {
+           return "Choose Job";
+        }
+        if (currentUser.getMoney() != 0) {
+            return "redirect:mainMenu";
+        } else {
+
+            System.out.println(userJob.getJobIncome());
+
+            // currentUser.setMoney(job.getJobIncome());
+            userService.updateUser(currentUser, userJob.getJobIncome(), 2);
+            return "redirect:mainMenu";
+        }
+
+       
     }
 
 }

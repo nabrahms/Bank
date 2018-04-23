@@ -8,6 +8,8 @@ package com.mycompany.bank;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -17,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -33,65 +37,67 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @EnableAutoConfiguration
 @SessionAttributes("home")
 public class HomeController {
-    
-    
-     @Autowired
+
+    @Autowired
     private UserService userService;
 
-    private final Authentication auth;
+    private Authentication auth;
 
     private User currentUser;
 
-    private final Validator validator;
-    
-    public HomeController(){
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        Object myUser = (auth != null) ? auth.getPrincipal() : null;
+    private Validator validator;
 
-        if (myUser instanceof User) {
-            currentUser = (User) myUser;
-        }
-        ValidatorFactory vF = Validation.buildDefaultValidatorFactory();
-        validator =  vF.getValidator();
-    }
-    
-    
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Car.class, new CarEditor());
+        binder.registerCustomEditor(Home.class, new HomeEditor());
     }
 
-    @ModelAttribute("allCars")
-    public List<Car> populateCar() {
-        ArrayList<Car> cars = new ArrayList<>();
-        cars.add(new Car(-1));
-        cars.add(new Car(1));
-        cars.add(new Car(2));
-        cars.add(new Car(3));
-        return cars;
+    public void validate() {
+        ValidatorFactory vF = Validation.buildDefaultValidatorFactory();
+        validator = vF.getValidator();
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        System.out.println(userName);
+        currentUser = userService.findUserByEmail(userName);
+
+        //currentUser = userService.findUserByEmail(emailList.get(0));
     }
-    
-    
-    
-    
-     @RequestMapping(value = "/choosehome", method = RequestMethod.GET)
-    public String chooseHome() {
+
+    @RequestMapping(value = "/choosehome", method = RequestMethod.GET)
+    public String chooseHome(Model m, @ModelAttribute("homeOption") Home home) {
+        validate();
+        List<Home> homeList = new ArrayList<>();
+        homeList.add(new Home(1));
+        homeList.add(new Home(2));
+        homeList.add(new Home(3));
+
+        m.addAttribute("homeList", homeList);
         return "Choose Home";
     }
 
     @RequestMapping(value = "/choosehome", method = RequestMethod.POST)
-    public String selectHome(Model model, HttpServletRequest request) {
+    public String selectHome(@Valid @ModelAttribute("homeOption") Home home, BindingResult result, HttpServletRequest request) {
         // System.out.println("we have gotten this far");
         // ModelAndView newView = new ModelAndView();
-        String homeName = request.getParameter("carChoice");
-        Home h = new Home(homeName);
-        currentUser.setBillAmount(h.getTotalBill());
-        userService.updateUser(currentUser);
+        // validate();
 
-        // u.setBillAmount(u.getBillAmount() + c.getTotalBill());
-        //userService.saveCar(u, h.getChoice());
-        // newView = new ModelAndView(new RedirectView("/choosehome", true));
-        return "redirect:/Choose Job.html";
+        System.out.println(request.getParameter("total"));
+        Home userHome = new Home(Integer.parseInt(request.getParameter("total")));
+        if (result.hasErrors()) {
+            return "Choose Home";
+        }
+        if (currentUser.getBillAmount() > 7000.0) {
+            return "redirect:choosejob";
+        } else {
+
+            System.out.println(userHome.getTotalBill());
+            userService.updateUser(currentUser, currentUser.getBillAmount() + userHome.getTotalBill(), 1);
+            return "redirect:choosejob";
+
+            // u.setBillAmount(u.getBillAmount() + c.getTotalBill());
+            //userService.saveHome(u, h.getChoice());
+            // newView = new ModelAndView(new RedirectView("/choosehome", true));
+        }
     }
 
 }

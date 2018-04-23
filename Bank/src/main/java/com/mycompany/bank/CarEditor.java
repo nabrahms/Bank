@@ -13,7 +13,7 @@ import java.beans.PropertyEditorSupport;
  */
 public class CarEditor extends PropertyEditorSupport{
     @Override
-    public void setAsText(String id){
+    public void setAsText(String id) throws IllegalArgumentException{
         Car c;
         switch(Integer.parseInt(id)){
             case 1: c = new Car(1); break;

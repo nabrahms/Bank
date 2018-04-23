@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         u.setActive(1);
         u.setCreditScore(650);
         u.setMoney(0);
+        u.setBillAmount(0.0);
 
         Role role = roleRepository.findByRole("ADMIN");
         u.setRoles(new HashSet<>(Arrays.asList(role)));
@@ -49,7 +50,13 @@ public class UserServiceImpl implements UserService {
 
     }
     @Override
-    public void updateUser(User u){
+    public void updateUser(User u, Double money, int choice){
+        if (choice==1){
+        u.setBillAmount(money);
+        }
+        if (choice ==2){
+            u.setMoney(money);
+        }
         userRepository.save(u);
     }
   
