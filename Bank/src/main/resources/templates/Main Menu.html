@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+
+            .btn-group button {
+                background-color: #4CAF50; /* Green background */
+                border: 1px solid green; /* Green border */
+                color: white; /* White text */
+                padding: 10px 24px; /* Some padding */
+                cursor: pointer; /* Pointer/hand icon */
+                float: left; /* Float the buttons side by side */
+            }
+
+            /* Clear floats (clearfix hack) */
+            .btn-group:after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+            .btn-group button:not(:last-child) {
+                border-right: none; /* Prevent double borders */
+            }
+
+            /* Add a background color on hover */
+            .btn-group button:hover {
+                background-color: #3e8e41;
+            }
+        </style>
     </head>
     <body>
-        <h1>This is where the main menu will be, the layout will change in checkpoint 3</h1>
+        <div class="panel-group" style="margin-top:40px">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align:center">
+                    <h2>
+                        <span th:utext="'Welcome ' + ${user.getName()}"></span> 
+                    </h2><br/>
+
+                </div>
+            </div>
+        </div>
+        <div style="text-align:right">
+            <span th:utext="'Your bills due are ' + ${user.getBillAmount()}"></span> <br/>
+            <span th:utext="'Your income is ' + ${user.getMoney()}"></span> <br/>
+        </div>
+        <br/><br/>
+        <div class="btn-group">
+            <form action="/viewstats">
+                <button type="submit" value="View your information"> View your information </button>
+            </form>
+            <form action="/bank">
+                <button type="submit" value="Visit the bank"> Visit the bank </button>
+            </form>
+
+        </div>
+
+
     </body>
 </html>

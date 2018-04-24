@@ -102,7 +102,7 @@ public class CarController {
     public String selectCar(@Valid @ModelAttribute("carOption") Car car, BindingResult result, HttpServletRequest request
     ) {
         //ModelAndView mav = new ModelAndView();
-        System.out.println(request.getParameter("total"));
+       // System.out.println(request.getParameter("total"));
         Car userCar = new Car(Integer.parseInt(request.getParameter("total")));
         //validate();
         //System.out.println("we have gotten this far");

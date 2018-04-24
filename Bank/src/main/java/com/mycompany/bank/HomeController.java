@@ -81,7 +81,7 @@ public class HomeController {
         // ModelAndView newView = new ModelAndView();
         // validate();
 
-        System.out.println(request.getParameter("total"));
+        ///System.out.println(request.getParameter("total"));
         Home userHome = new Home(Integer.parseInt(request.getParameter("total")));
         if (result.hasErrors()) {
             return "Choose Home";
@@ -90,7 +90,7 @@ public class HomeController {
             return "redirect:choosejob";
         } else {
 
-            System.out.println(userHome.getTotalBill());
+            //System.out.println(userHome.getTotalBill());
             userService.updateUser(currentUser, currentUser.getBillAmount() + userHome.getTotalBill(), 1);
             return "redirect:choosejob";
 

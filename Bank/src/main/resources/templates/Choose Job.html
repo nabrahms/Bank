@@ -10,7 +10,7 @@
         <div align="center"><h1>Finally, select a job </h1></div>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <div class="form-group blu-margin" align="center">
-            <<form style ="display:inline-block" action="#" th:action="@{/choosejob}" th:object="${jobOption}" th:method="POST" th:required="true">
+            <form style ="display:inline-block" action="#" th:action="@{/choosejob}" th:object="${jobOption}" th:method="POST" th:required="true">
 
                 <select name="total">
                     <option th:each="jobName : ${jobList}" 
@@ -21,7 +21,7 @@
 
                 <div align="center">
                     <button type="submit" class="btn btn-primary btn-block green darken-1 col s8 offset-s2" name="submit_car_choice"  > Submit </button>
-                    <input type="hidden" th:value="${jobOption.getJobIncome()}" />
+                <!--    <input type="hidden" th:value="${jobOption.getJobIncome()}" /> -->
                 </div>
 
             </form>
