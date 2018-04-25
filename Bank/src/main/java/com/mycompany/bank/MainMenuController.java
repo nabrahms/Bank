@@ -113,8 +113,10 @@ public class MainMenuController {
         } else {
             user.setCreditScore(user.getCreditScore() - 70);
         }
+        int cS = user.getCreditScore();
         userService.updateUser(user, user.getLoans(), 3);
         userService.updateUser(user, user.getMoney(), 4);
+        userService.updateUser(user, new Double(cS), 5);
         return "redirect:bank";
     }
 
@@ -149,6 +151,7 @@ public class MainMenuController {
 
             userService.updateUser(user, user.getLoans(), 3);
             userService.updateUser(user, user.getMoney(), 4);
+            userService.updateUser(user, new Double(user.getCreditScore()), 5);
             return "redirect:bank";
         }
 
@@ -182,6 +185,7 @@ public class MainMenuController {
 
             userService.updateUser(user, user.getBillAmount(), 1);
             userService.updateUser(user, user.getMoney(), 4);
+            userService.updateUser(user, new Double(user.getCreditScore()), 5);
             return "redirect:bank";
         }
 
@@ -199,6 +203,7 @@ public class MainMenuController {
             user.setBillAmount(user.getBillAmount() + difference * initialBill + .03 * difference * initialBill);
             userService.updateUser(user, user.getMoney(), 4);
             userService.updateUser(user, user.getBillAmount(), 1);
+            userService.updateUser(user, initialBill, difference);
         }
     }
 }

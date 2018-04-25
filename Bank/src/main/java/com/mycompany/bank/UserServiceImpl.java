@@ -63,6 +63,8 @@ public class UserServiceImpl implements UserService {
         }
         if (choice == 4) {
             u.setMoney(money);
+        }if (choice == 5){
+            u.setCreditScore((int) Math.round(money));
         }
         userRepository.save(u);
     }
