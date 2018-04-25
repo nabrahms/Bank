@@ -43,24 +43,23 @@ and open the template in the editor.
         <div style="text-align: center"><h1>Welcome to the bank <span th:utext="${user.getName()}"></span></h1></div>
         <br/><br/><br/>
         <div style="text-align: right"><h3>Select an option</h3><br/></div>
-        <div style="text-align: left"> 
-            <div class="btn-group">
-                <form action="/payloan">
-                    <input type="submit" name="button" value="Pay off loan"/>
-                </form>
-                <form action="/withdraw">
-                    <input type="submit" name="button" value="Withdraw"/>
-                </form><br/>
 
-                <form action="/loan">
-                    <input type="submit" name="button" value="Get a loan"/>
-                </form><br/>
+        <div class="btn-group">
+            <form action="/payloan">
+                <input type="submit" name="button" value="Pay off loan"/>
+            </form>
+            <form action="/loan">
+                <input type="submit" name="button" value="Get a loan"/>
+            </form><br/>
+            <form action="/paybills">
+                <input type="submit" name="button" value="Pay off your bills"/>
+            </form><br/>
 
-                <form action="/mainMenu">
-                    <input type="submit" name="button" value="Main Menu"/>
-                </form>
-            </div>
+            <form action="/mainMenu">
+                <input type="submit" name="button" value="Main Menu"/>
+            </form>
         </div>
+
 
     </body>
 </html>

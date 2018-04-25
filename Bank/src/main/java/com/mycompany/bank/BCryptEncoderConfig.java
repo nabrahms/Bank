@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
+
 
 /**
  *
@@ -24,8 +24,5 @@ public class BCryptEncoderConfig extends WebMvcConfigurerAdapter {
         return bCryptPasswordEncoder;
     }
 
-    @Bean
-    public Java8TimeDialect java8TimeDialect() {
-        return new Java8TimeDialect();
-    }
+    
 }

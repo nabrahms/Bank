@@ -41,7 +41,7 @@ public class MainMenuController {
 
     private Double initialBill;
 
-    private LocalDateTime time;
+    private LocalDateTime time = LocalDateTime.now();
 
     public void validate() {
         ValidatorFactory vF = Validation.buildDefaultValidatorFactory();
@@ -90,13 +90,22 @@ public class MainMenuController {
         }
     }
 
-    @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/withdraw", method = RequestMethod.GET)
     public String withdraw(Model m) {
         check();
         m.addAttribute("user", user);
         return "withdraw";
     }
 
+    @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
+    public String getMoney(@ModelAttribute("withdrawAmount") Double d, Model m) {
+        if (d > user.getMoney()) {
+            m.addAttribute("errorMessage", "You don't have enough money");
+            return "withdraw";
+        }else{
+            return "redirect:bank";
+        }
+    }*/
     @RequestMapping(value = "/loan", method = RequestMethod.GET)
 
     public String loan(Model m) {
@@ -111,7 +120,7 @@ public class MainMenuController {
         check();
         user.setLoans(user.getLoans() + d);
         user.setMoney(user.getMoney() + d);
-        if (d > 10000) {
+        if (d < 10000) {
             user.setCreditScore(user.getCreditScore() - 5);
         } else if (d >= 10000 && d < 100000) {
             user.setCreditScore(user.getCreditScore() - 12);
@@ -120,8 +129,8 @@ public class MainMenuController {
         } else {
             user.setCreditScore(user.getCreditScore() - 70);
         }
-        userService.updateUser(user, d, 3);
-        userService.updateUser(user, user.getMoney(), 2);
+        userService.updateUser(user, user.getLoans(), 3);
+        userService.updateUser(user, user.getMoney(), 4);
         return "redirect:bank";
     }
 
@@ -132,9 +141,72 @@ public class MainMenuController {
         return "payloan";
     }
 
+    @RequestMapping(value = "/payloan", method = RequestMethod.POST)
+    public String actuallyPayLoan(@ModelAttribute("loanPayback") Double d, Model m) {
+        check();
+        if (d > user.getMoney()) {
+            m.addAttribute("errorMessage", "You don't have enough money");
+            return "payloan";
+        } else if (d > user.getLoans()) {
+            m.addAttribute("errorMessage", "You don't owe that much");
+            return "payloan";
+        } else {
+            user.setLoans(user.getLoans() - d);
+            user.setMoney(user.getMoney() - d);
+            if (d < 10000) {
+                user.setCreditScore(user.getCreditScore() + 5);
+            } else if (d >= 10000 && d < 100000) {
+                user.setCreditScore(user.getCreditScore() + 12);
+            } else if (d >= 100000 && d < 1000000) {
+                user.setCreditScore(user.getCreditScore() + 30);
+            } else {
+                user.setCreditScore(user.getCreditScore() + 70);
+            }
+
+            userService.updateUser(user, user.getLoans(), 3);
+            userService.updateUser(user, user.getMoney(), 4);
+            return "redirect:bank";
+        }
+
+    }
+
+    @RequestMapping(value = "/paybills", method = RequestMethod.GET)
+    public String payBills(Model m) {
+        check();
+        m.addAttribute("user", user);
+        return "paybills";
+    }
+
+    @RequestMapping(value = "/paybills", method = RequestMethod.POST)
+    public String actuallyPayBills(@ModelAttribute("billPayback") Double d, Model m) {
+        check();
+        if (d > user.getMoney()) {
+            m.addAttribute("errorMessage", "You don't have enough money");
+            return "paybills";
+        } else {
+            user.setBillAmount(user.getBillAmount() - d);
+            user.setMoney(user.getMoney() - d);
+            if (d < 10000) {
+                user.setCreditScore(user.getCreditScore() + 5);
+            } else if (d >= 10000 && d < 100000) {
+                user.setCreditScore(user.getCreditScore() + 12);
+            } else if (d >= 100000 && d < 1000000) {
+                user.setCreditScore(user.getCreditScore() + 30);
+            } else {
+                user.setCreditScore(user.getCreditScore() + 70);
+            }
+
+            userService.updateUser(user, user.getBillAmount(), 1);
+            userService.updateUser(user, user.getMoney(), 4);
+            return "redirect:bank";
+        }
+
+    }
+
     public void check() {
+        time = LocalDateTime.now();
         int difference = time.getMinute() - initialMinute;
-        if (difference != 0) {
+        if (difference >= 0 && difference != 0) {
             user.setBillAmount(user.getBillAmount() + difference * initialBill);
             userService.updateUser(user, user.getBillAmount(), 1);
         }

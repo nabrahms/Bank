@@ -27,7 +27,7 @@ and open the template in the editor.
                 <td> <span th:utext="${user.getMoney()}"/></td>
                 <td> <span th:utext="${user.getBillAmount()}"/></td>
                 <td> <span th:utext="${user.getCreditScore()}"/></td>
-                <td><span th:utext="@{user.getMoney()}"/></td>
+                <td><span th:utext="${user.getMoney()}"/></td>
                 <td> <span th:utext="${user.getLoans()}"/></td>
             </tr>
         </table>

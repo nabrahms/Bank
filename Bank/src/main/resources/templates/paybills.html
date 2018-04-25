@@ -7,15 +7,15 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Get a loan</title>
+        <title>Pay your bills</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <div style="text-align: left">
             How much do you want to pay off?
-            <form action="#" th:action="@{/payloan}" th:object = "${user}" method="post">
-                <p>Amount in $: <input type="number" name="loanPayback" 
+            <form action="#" th:action="@{/paybills}" th:object = "${user}" method="post">
+                <p>Amount in $: <input type="number" name="billPayback" 
                                        <!--th:class="${#fields.hasErrors('*')}" th:text="${errorMessage}"-->/></p>
                 <input type="submit" value="Submit"/>
             </form>
