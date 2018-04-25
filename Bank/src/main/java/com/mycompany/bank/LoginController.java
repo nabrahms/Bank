@@ -31,10 +31,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @EnableAutoConfiguration
 public class LoginController {
-    
+
     @Autowired
     private UserService userService;
-    
+
     private User user;
 
     // private Bank bank;
@@ -42,18 +42,18 @@ public class LoginController {
     public String login() {
         return "Login";
     }
-    
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model m) {
         User u = new User();
         m.addAttribute("user", u);
         return "registration";
     }
-    
+
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String createUser(@Valid User u, BindingResult result, Model m) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
+
         User userExists = userService.findUserByEmail(auth.getName());
         if (userExists != null) {
             result
@@ -63,37 +63,35 @@ public class LoginController {
         if (result.hasErrors()) {
             return "registration";
         } else {
-            
+
             userService.saveUser(u);
             m.addAttribute("successMessage", "User has been created successfully!");
             m.addAttribute("user", new User());
         }
         return "registration";
     }
-    
+
     @RequestMapping(value = "/mainmenu", method = RequestMethod.GET)
-    public ModelAndView mainMenu() {
-        ModelAndView newView = new ModelAndView();
+    public String mainMenu() {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
+
         user = userService.findUserByEmail(auth.getName());
         //user.setBillAmount(0.0);
 
         if (user.getJobIncome() == 0 && user.getBillAmount() == 0.0 //&& user.getJob().equals(null)
                 ) {
-            newView.setViewName("Choose Car");
+            return "redirect:choosecar";
         } else if (user.getBillAmount() != 0 && user.getJobIncome() == 0.0) {
-            newView.setViewName("Choose Job");
+            return "redirect:choosejob";
         } else {
-            newView.setViewName("Main Menu");
+            return "redirect:mainMenu";
         }
-        
-        return newView;
-        
+
     }
 
     public User returnUser() {
         return user;
     }
-    
+
 }

@@ -90,22 +90,6 @@ public class MainMenuController {
         }
     }
 
-    /*@RequestMapping(value = "/withdraw", method = RequestMethod.GET)
-    public String withdraw(Model m) {
-        check();
-        m.addAttribute("user", user);
-        return "withdraw";
-    }
-
-    @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
-    public String getMoney(@ModelAttribute("withdrawAmount") Double d, Model m) {
-        if (d > user.getMoney()) {
-            m.addAttribute("errorMessage", "You don't have enough money");
-            return "withdraw";
-        }else{
-            return "redirect:bank";
-        }
-    }*/
     @RequestMapping(value = "/loan", method = RequestMethod.GET)
 
     public String loan(Model m) {
@@ -154,13 +138,13 @@ public class MainMenuController {
             user.setLoans(user.getLoans() - d);
             user.setMoney(user.getMoney() - d);
             if (d < 10000) {
-                user.setCreditScore(user.getCreditScore() + 5);
+                user.setCreditScore(user.getCreditScore() + 7);
             } else if (d >= 10000 && d < 100000) {
-                user.setCreditScore(user.getCreditScore() + 12);
+                user.setCreditScore(user.getCreditScore() + 15);
             } else if (d >= 100000 && d < 1000000) {
-                user.setCreditScore(user.getCreditScore() + 30);
+                user.setCreditScore(user.getCreditScore() + 40);
             } else {
-                user.setCreditScore(user.getCreditScore() + 70);
+                user.setCreditScore(user.getCreditScore() + 100);
             }
 
             userService.updateUser(user, user.getLoans(), 3);
@@ -207,7 +191,7 @@ public class MainMenuController {
         time = LocalDateTime.now();
         int difference = time.getMinute() - initialMinute;
         if (difference >= 0 && difference != 0) {
-            user.setBillAmount(user.getBillAmount() + difference * initialBill);
+            user.setBillAmount(user.getBillAmount() + difference * initialBill + .03 * difference * initialBill);
             userService.updateUser(user, user.getBillAmount(), 1);
         }
         if (difference != 0 && difference % 4 == 0) {
