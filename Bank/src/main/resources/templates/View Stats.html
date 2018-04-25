@@ -20,17 +20,19 @@ and open the template in the editor.
                 <th>Credit Score : </th>
                 <th>Money : </th>
                 <th>Loans: </th>
-                
+
             </tr>
             <tr>
                 <td> <span th:utext="${user.getName()}"/></td>
-                <td> <span th:utext="${user.getMoney()}"/></td>
+                <td> <span th:utext="${user.getJobIncome()}"/></td>
                 <td> <span th:utext="${user.getBillAmount()}"/></td>
                 <td> <span th:utext="${user.getCreditScore()}"/></td>
                 <td><span th:utext="${user.getMoney()}"/></td>
                 <td> <span th:utext="${user.getLoans()}"/></td>
             </tr>
         </table>
-        <div>TODO write content</div>
+        <div>
+            <input type="button" value="Back" onclick="javascript:history.back()"/>
+        </div>
     </body>
 </html>
