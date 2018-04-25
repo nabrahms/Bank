@@ -23,7 +23,7 @@ and open the template in the editor.
 
         <div align="center"><p>Welcome! Choose a car </p></div>
         <br/><br/><br/><br/>
-        <img th:src ="@{/resources/static/goodcar.jpg}" alt="car"/>
+       <!-- <img th:src ="@{/resources/static/goodcar.jpg}" alt="car"/> -->
             <br/><br/><br/><br/><br/><br/><br/><br/>
             <div class="form-group blu-margin" align="center">
                 <form style ="display:inline-block" action="#" th:action="@{/choosecar}" th:object="${carOption}" th:method="POST" th:required="true">

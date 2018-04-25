@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Start Page</title>
+        <title>Main Menu</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <style>
 
@@ -45,7 +45,8 @@
         </div>
         <div style="text-align:right">
             <span th:utext="'Your bills due are ' + ${user.getBillAmount()}"></span> <br/>
-            <span th:utext="'Your income is ' + ${user.getMoney()}"></span> <br/>
+            <span th:utext="'Your income is ' + ${user.getJobIncome()}"></span> <br/>
+            <span th:utext="'Your total amount of money in the bank is ' + ${user.getMoney()}"></span><br/>
         </div>
         <br/><br/>
         <div class="btn-group">
@@ -54,6 +55,9 @@
             </form>
             <form action="/bank">
                 <button type="submit" value="Visit the bank"> Visit the bank </button>
+            </form>
+            <form action="/login">
+                <button type="submit" value="Logout">Logout </button>
             </form>
 
         </div>

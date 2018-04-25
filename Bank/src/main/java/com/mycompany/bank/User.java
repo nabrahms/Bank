@@ -46,13 +46,10 @@ public class User implements Serializable {
     private int creditScore;
     @Column(name="bill_amount")
     private Double billAmount;
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="jobIncome")
-    //@JoinTable(name= "job", joinColumns = @JoinColumn(name = "job_income"))
-   // private Set<Job> job = new HashSet<>();
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinTable(name="bill", joinColumns = @JoinColumn(name="billAmount"))
-    //private Set<Bills> bill = new HashSet<>();
+    @Column(name="job_income")
+    private Double jobIncome;
+    @Column(name="loans")
+    private Double loans;
 
     protected User() {
     }
@@ -72,6 +69,8 @@ public class User implements Serializable {
        // this.job = null;
         //this.bill = null;
         this.billAmount= 0.0;
+        this.jobIncome = 0.0;
+        this.loans=0.0;
     }
 
     /**
@@ -202,8 +201,30 @@ public class User implements Serializable {
         this.billAmount = d;
     }
     
+    public Double getJobIncome(){
+        return this.jobIncome;
+    }
+    
+    public void setJobIncome(Double j){
+        this.jobIncome = j;
+    }
+    
     /*
     public Job getJob(){
         return this.job;
     }*/
+
+    /**
+     * @return the loans
+     */
+    public Double getLoans() {
+        return loans;
+    }
+
+    /**
+     * @param loans the loans to set
+     */
+    public void setLoans(Double loans) {
+        this.loans = loans;
+    }
 }

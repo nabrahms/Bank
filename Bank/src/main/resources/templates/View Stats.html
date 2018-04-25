@@ -18,6 +18,7 @@ and open the template in the editor.
                 <th>Income : </th>
                 <th>Bills Due : </th>
                 <th>Credit Score : </th>
+                <th>Money : </th>
                 <th>Loans: </th>
                 
             </tr>
@@ -26,7 +27,8 @@ and open the template in the editor.
                 <td> <span th:utext="${user.getMoney()}"/></td>
                 <td> <span th:utext="${user.getBillAmount()}"/></td>
                 <td> <span th:utext="${user.getCreditScore()}"/></td>
-                <td> 0</td>
+                <td><span th:utext="@{user.getMoney()}"/></td>
+                <td> <span th:utext="${user.getLoans()}"/></td>
             </tr>
         </table>
         <div>TODO write content</div>

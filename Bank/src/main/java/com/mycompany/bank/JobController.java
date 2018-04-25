@@ -76,12 +76,12 @@ public class JobController {
     @RequestMapping(value = "/choosejob", method = RequestMethod.POST)
     public String selectJob(@ModelAttribute("jobChoice") Job job, BindingResult result, HttpServletRequest request) {
        // ModelAndView mav = new ModelAndView();
-        System.out.println("we have gotten this far");
+      //  System.out.println("we have gotten this far");
         Job userJob = new Job(Integer.parseInt(request.getParameter("total")));
         if (result.hasErrors()) {
            return "Choose Job";
         }
-        if (currentUser.getMoney() != 0) {
+        if (currentUser.getJobIncome() != 0) {
             return "redirect:mainMenu";
         } else {
 

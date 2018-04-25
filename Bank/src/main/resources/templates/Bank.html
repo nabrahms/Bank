@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>The Bank</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+
+            .btn-group button {
+                background-color: #4CAF50; /* Green background */
+                border: 1px solid green; /* Green border */
+                color: white; /* White text */
+                padding: 10px 24px; /* Some padding */
+                cursor: pointer; /* Pointer/hand icon */
+                float: left; /* Float the buttons side by side */
+            }
+
+            /* Clear floats (clearfix hack) */
+            .btn-group:after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+            .btn-group button:not(:last-child) {
+                border-right: none; /* Prevent double borders */
+            }
+
+            /* Add a background color on hover */
+            .btn-group button:hover {
+                background-color: #3e8e41;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div style="text-align: center"><h1>Welcome to the bank <span th:utext="${user.getName()}"></span></h1></div>
+        <br/><br/><br/>
+        <div style="text-align: right"><h3>Select an option</h3><br/></div>
+        <div style="text-align: left"> 
+            <div class="btn-group">
+                <form action="/payloan">
+                    <input type="submit" name="button" value="Pay off loan"/>
+                </form>
+                <form action="/withdraw">
+                    <input type="submit" name="button" value="Withdraw"/>
+                </form><br/>
+
+                <form action="/loan">
+                    <input type="submit" name="button" value="Get a loan"/>
+                </form><br/>
+
+                <form action="/mainMenu">
+                    <input type="submit" name="button" value="Main Menu"/>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>
