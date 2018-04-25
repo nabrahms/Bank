@@ -190,13 +190,15 @@ public class MainMenuController {
     public void check() {
         time = LocalDateTime.now();
         int difference = time.getMinute() - initialMinute;
-        if (difference >= 0 && difference != 0) {
-            user.setBillAmount(user.getBillAmount() + difference * initialBill + .03 * difference * initialBill);
+        if (difference >= 0 && difference != 0 && difference % 4 != 0) {
+            user.setBillAmount(user.getBillAmount() + difference * initialBill);
             userService.updateUser(user, user.getBillAmount(), 1);
         }
         if (difference != 0 && difference % 4 == 0) {
             user.setMoney(user.getMoney() + user.getJobIncome());
+            user.setBillAmount(user.getBillAmount() + difference * initialBill + .03 * difference * initialBill);
             userService.updateUser(user, user.getMoney(), 4);
+            userService.updateUser(user, user.getBillAmount(), 1);
         }
     }
 }
