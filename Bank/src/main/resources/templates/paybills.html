@@ -16,8 +16,13 @@ and open the template in the editor.
             How much do you want to pay off?
             <form action="#" th:action="@{/paybills}" th:object = "${user}" method="post">
                 <p>Amount in $: <input type="number" name="billPayback" 
-                                       <!--th:class="${#fields.hasErrors('*')}" th:text="${errorMessage}"-->/></p>
+                                       /></p>
                 <input type="submit" value="Submit"/>
+               <!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('user.getBillAmount()')}">
+                    <p th:errors="*{user.getBillAmount()}" th:text='${errorMessage}'>
+
+                    </p>
+                </div>-->
             </form>
             <input type="button" value="Back" onclick="javascript:history.back()"/>
         </div>

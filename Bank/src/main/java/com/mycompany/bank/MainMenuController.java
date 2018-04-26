@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,11 +38,13 @@ public class MainMenuController {
 
     private User user;
 
-    private int initialMinute;
-
     private Double initialBill;
 
     private LocalDateTime time = LocalDateTime.now();
+
+    private final int initialMinute = time.getMinute();
+
+    private boolean hasBeenChecked;
 
     public void validate() {
         ValidatorFactory vF = Validation.buildDefaultValidatorFactory();
@@ -56,9 +59,15 @@ public class MainMenuController {
     @RequestMapping(value = "/mainMenu", method = RequestMethod.GET)
     public String mainMenu(Model m) {
         validate();
+        check();
+        //hasBeenChecked = false;
         m.addAttribute("user", user);
-        initialMinute = time.getMinute();
-        m.addAttribute("minute", initialMinute);
+        if (user.getMoney() == 0) {
+            user.setMoney(user.getJobIncome());
+            userService.updateUser(user, user.getMoney(), 4);
+        }
+        // initialMinute = time.getMinute();
+        // m.addAttribute("minute", initialMinute);
         return "Main Menu";
     }
 
@@ -71,7 +80,7 @@ public class MainMenuController {
 
     @RequestMapping(value = "/bank")
     public String visitBank(Model m) {
-        check();
+        //   check();
         m.addAttribute("user", user);
         return "Bank";
     }
@@ -93,7 +102,7 @@ public class MainMenuController {
     @RequestMapping(value = "/loan", method = RequestMethod.GET)
 
     public String loan(Model m) {
-        check();
+        //check();
         m.addAttribute("user", user);
         return "loan";
     }
@@ -129,7 +138,7 @@ public class MainMenuController {
 
     @RequestMapping(value = "/payloan", method = RequestMethod.POST)
     public String actuallyPayLoan(@ModelAttribute("loanPayback") Double d, Model m) {
-        check();
+
         if (d > user.getMoney()) {
             m.addAttribute("errorMessage", "You don't have enough money");
             return "payloan";
@@ -154,6 +163,7 @@ public class MainMenuController {
             userService.updateUser(user, new Double(user.getCreditScore()), 5);
             return "redirect:bank";
         }
+        //return "redirect:bank";
 
     }
 
@@ -165,11 +175,16 @@ public class MainMenuController {
     }
 
     @RequestMapping(value = "/paybills", method = RequestMethod.POST)
-    public String actuallyPayBills(@ModelAttribute("billPayback") Double d, Model m) {
+    public String actuallyPayBills(@ModelAttribute("billPayback") Double d, Model m, BindingResult result) {
         check();
-        if (d > user.getMoney()) {
-            m.addAttribute("errorMessage", "You don't have enough money");
-            return "paybills";
+        if (result.hasErrors()) {
+            if (d > user.getMoney()) {
+                m.addAttribute("errorMessage", "You don't have enough money");
+                return "paybills";
+            } else if (d > user.getBillAmount()) {
+                m.addAttribute("errorMessage", "You don't owe that much money");
+                return "paybills";
+            }
         } else {
             user.setBillAmount(user.getBillAmount() - d);
             user.setMoney(user.getMoney() - d);
@@ -188,23 +203,27 @@ public class MainMenuController {
             userService.updateUser(user, new Double(user.getCreditScore()), 5);
             return "redirect:bank";
         }
-
+        return "redirect:bank";
     }
 
     public void check() {
-        time = LocalDateTime.now();
-        int difference = time.getMinute() - initialMinute;
+       
+
+        int difference = LocalDateTime.now().getMinute() - initialMinute;
         if (difference >= 0 && difference != 0 && difference % 4 != 0) {
-            user.setBillAmount(user.getBillAmount() + difference * initialBill);
+            user.setBillAmount(user.getBillAmount() + (difference / 15) * initialBill);
             userService.updateUser(user, user.getBillAmount(), 1);
+          
         }
-        if (difference != 0 && difference % 4 == 0) {
+        if (difference != 0 && difference % 4 == 0 ) {
             user.setMoney(user.getMoney() + user.getJobIncome());
             user.setBillAmount(user.getBillAmount() + difference * initialBill + .03 * difference * initialBill);
             user.setCreditScore(user.getCreditScore() - 4);
             userService.updateUser(user, user.getMoney(), 4);
             userService.updateUser(user, user.getBillAmount(), 1);
             userService.updateUser(user, new Double(user.getCreditScore()), 5);
+         
         }
+
     }
 }
