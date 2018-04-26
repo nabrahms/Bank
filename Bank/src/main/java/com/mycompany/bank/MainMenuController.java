@@ -201,9 +201,10 @@ public class MainMenuController {
         if (difference != 0 && difference % 4 == 0) {
             user.setMoney(user.getMoney() + user.getJobIncome());
             user.setBillAmount(user.getBillAmount() + difference * initialBill + .03 * difference * initialBill);
+            user.setCreditScore(user.getCreditScore() - 4);
             userService.updateUser(user, user.getMoney(), 4);
             userService.updateUser(user, user.getBillAmount(), 1);
-            userService.updateUser(user, initialBill, difference);
+            userService.updateUser(user, new Double(user.getCreditScore()), 5);
         }
     }
 }
