@@ -7,10 +7,9 @@ package com.mycompany.bank;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
@@ -22,21 +21,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import javax.validation.Validator;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import org.springframework.security.core.session.SessionRegistry;
+import javax.validation.Validator;
+
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -102,7 +94,7 @@ public class CarController {
     public String selectCar(@Valid @ModelAttribute("carOption") Car car, BindingResult result, HttpServletRequest request
     ) {
         //ModelAndView mav = new ModelAndView();
-       // System.out.println(request.getParameter("total"));
+        // System.out.println(request.getParameter("total"));
         Car userCar = new Car(Integer.parseInt(request.getParameter("total")));
         //validate();
         //System.out.println("we have gotten this far");
