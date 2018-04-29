@@ -40,11 +40,10 @@ public class MainMenuController {
 
     private Double initialBill;
 
-    private LocalDateTime time = LocalDateTime.now();
+    private final LocalDateTime time = LocalDateTime.now();
 
     private final int initialMinute = time.getMinute();
 
-    private boolean hasBeenChecked;
 
     public void validate() {
         ValidatorFactory vF = Validation.buildDefaultValidatorFactory();
